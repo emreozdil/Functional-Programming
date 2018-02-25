@@ -26,6 +26,12 @@ sundays1 start end = sundays' start 1
         rest = sundays' nextY nextM
 
 
+-- Q) What does the helper function (sundays') calculate?
+-- A) Number of Sunday which is 1st day of month.
+-- Q) What if you don't define a "rest" and use its expression where it's needed?
+-- A) There would be no change and the result would be the same.
+
+
 -- Question 3
 
 tailSundays1 :: Integer -> Integer -> Integer
