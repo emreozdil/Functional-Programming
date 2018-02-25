@@ -24,3 +24,15 @@ sundays1 start end = sundays' start 1
         nextY = if m == 12 then y + 1 else y
         nextM = if m == 12 then 1 else m + 1
         rest = sundays' nextY nextM
+
+
+-- Question 3
+
+tailSundays1 :: Integer -> Integer -> Integer
+tailSundays1 start end = sundays' start 1 0
+  where
+    sundays' :: Integer -> Integer -> Integer -> Integer
+    sundays' y m rest
+      | y > end = rest
+      | m == 13 = sundays' (y + 1) (1) rest
+      | otherwise = if dayOfWeek y m 1 == 1 then sundays' y (m + 1) (rest + 1) else sundays' y (m + 1) rest
