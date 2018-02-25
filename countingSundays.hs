@@ -64,3 +64,11 @@ sundays2 start end = sundays' start 1 2
         nextY = if m == 12 then y + 1 else y
         nextM = if m == 12 then 1 else m + 1
         rest = sundays' nextY nextM nextWeekday
+
+
+-- Question 5
+
+-- In any 400 years there is always (400 * 365) + (400/4) - (400/100) + (400/400) days.
+-- 146097 days in 400 years is fully divided into 7.
+-- The possibility that a certain day of a month is a Sunday is 1/7.
+-- Yes, all days equally possible.
