@@ -1,14 +1,14 @@
-import Data.Map
+import Data.Map as Map
 import Data.Maybe
 import System.Environment
 import System.IO
 import Prelude hiding (Word)
 
-data Trie = Trie {end :: Bool, children :: Map Char Trie}
+data Trie = Trie {end :: Bool, children :: Map Char Trie} deriving (Eq, Show)
 type Word = String
 
 empty :: Trie
-empty = undefined
+empty = Trie {end = False, children = Map.empty}
 
 insert :: Word -> Trie -> Trie
 insert = undefined
