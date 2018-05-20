@@ -20,7 +20,11 @@ insert (x:xs) (Trie e child) =
 
 
 insertList :: [Word] -> Trie
-insertList = undefined
+insertList a = insertList' a empty where
+    insertList' :: [Word] -> Trie -> Trie
+    insertList' (x:xs) trie
+        | xs == [] = insert x trie
+        | otherwise = insertList' xs (insert x trie)
 
 search :: Word -> Trie -> Bool
 search = undefined
