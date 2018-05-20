@@ -27,7 +27,11 @@ insertList a = insertList' a empty where
         | otherwise = insertList' xs (insert x trie)
 
 search :: Word -> Trie -> Bool
-search = undefined
+search [] (Trie end child) = end
+search (x:xs) (Trie end child) =
+    case Map.lookup x child of
+        Nothing -> False
+        Just trie -> search xs trie
 
 getWords :: Trie -> [Word]
 getWords = undefined
