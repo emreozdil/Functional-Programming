@@ -13,10 +13,10 @@ empty = Trie {end = False, children = Map.empty}
 
 insert :: Word -> Trie -> Trie
 insert [] trie = trie {end = True}
-insert (x:xs) (Trie e child) =
+insert (x:xs) (Trie end child) =
     case Map.lookup x child of
-        Nothing -> Trie {end = e, children = Map.insert x (insert xs empty) child}
-        Just trie -> Trie {end = e, children = Map.insert x (insert xs trie) child}
+        Nothing -> Trie {end = end, children = Map.insert x (insert xs empty) child}
+        Just trie -> Trie {end = end, children = Map.insert x (insert xs trie) child}
 
 
 insertList :: [Word] -> Trie
