@@ -37,4 +37,15 @@ getWords :: Trie -> [Word]
 getWords = undefined
 
 prefix :: Word -> Trie -> Maybe [Word]
-prefix = undefined
+prefix [] trie = Just (getWords trie)
+prefix a t = prefix' a a t where
+    prefix' :: Word -> Word -> Trie -> Maybe [Word]
+    prefix' a [] trie = getTrieWords a (getWords trie)
+    prefix' a (x:xs) (Trie end child) =
+      case Map.lookup x child of
+          Nothing -> Nothing
+          Just trie -> prefix' a xs trie
+
+getTrieWords :: Word -> [Word] -> Maybe [Word]
+getTrieWords _ [] = Nothing
+getTrieWords a xs = Just [a ++ x | x <- xs]
