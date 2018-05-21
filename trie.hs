@@ -34,7 +34,9 @@ search (x:xs) (Trie end child) =
         Just trie -> search xs trie
 
 getWords :: Trie -> [Word]
-getWords = undefined
+getWords (Trie end child) = if end then [] : words else words
+  where
+    words = [words | (x,xs) <- Map.toList child, words <- map (x:) (getWords xs)]
 
 prefix :: Word -> Trie -> Maybe [Word]
 prefix [] trie = Just (getWords trie)
