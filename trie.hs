@@ -33,13 +33,13 @@ search (x:xs) (Trie end child) =
 getWords :: Trie -> [Word]
 getWords (Trie end child) = if end then [] : words else words
   where
-    words = [words | (x,xs) <- Map.toList child, words <- map (x:) (getWords xs)]
+    words = [words | (x,xs) <- Map.toList child, words <- map (x:) $ getWords xs]
 
 prefix :: Word -> Trie -> Maybe [Word]
 prefix [] trie = Just (getWords trie)
 prefix a t = prefix' a a t where
     prefix' :: Word -> Word -> Trie -> Maybe [Word]
-    prefix' a [] trie = getTrieWords a (getWords trie)
+    prefix' a [] trie = getTrieWords a $ getWords trie
     prefix' a (x:xs) (Trie end child) =
       case Map.lookup x child of
           Nothing -> Nothing
@@ -73,7 +73,7 @@ handleAction action trie
     | action == 'e' = putStrLn "Have a nice day :) See you!"
     | action == 'p' = do
         putStrLn "List of words in dictionary:"
-        mapM_ putStrLn (getWords trie)
+        mapM_ putStrLn $ getWords trie
         appLifeCyle trie
     | otherwise = do
         putStrLn "Enter word/prefix:"
@@ -83,7 +83,7 @@ handleAction action trie
             handleAction' action word trie
                 | action == 'a' = do
                     putStrLn "New word is added!"
-                    appLifeCyle (insert word trie)
+                    appLifeCyle $ insert word trie
                 | action == 's' = do
                     if search word trie then putStrLn "Exists in dictionary!"
                         else putStrLn "NOT exist!"
