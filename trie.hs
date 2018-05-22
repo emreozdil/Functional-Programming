@@ -1,3 +1,4 @@
+module Main where
 import Data.Map (Map)
 import qualified Data.Map as Map
 import Data.Maybe
@@ -51,3 +52,20 @@ prefix a t = prefix' a a t where
 getTrieWords :: Word -> [Word] -> Maybe [Word]
 getTrieWords _ [] = Nothing
 getTrieWords a xs = Just [a ++ x | x <- xs]
+
+appLifeCyle :: Trie -> IO()
+appLifeCyle = undefined
+
+main = do
+    -- get command line argument
+    (readText: args) <- getArgs
+
+    -- read file and convert to word list
+    content <- readFile readText
+    let words = lines content
+
+    -- create trie
+    let trie = insertList words
+
+    -- Fire App Lifecyle
+    appLifeCyle trie
