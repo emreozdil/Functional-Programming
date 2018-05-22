@@ -73,7 +73,32 @@ prepareUI = do
     putStrLn "Enter the action:"
 
 handleAction :: Char -> Trie -> IO()
-handleAction = undefined
+handleAction action trie
+    | action == 'e' = putStrLn "Have a nice day :) See you!"
+    | action == 'p' = do
+        putStrLn "List of words in dictionary:"
+        mapM_ putStrLn (getWords trie)
+        appLifeCyle trie
+    | otherwise = do
+        putStrLn "Enter word/prefix:"
+        word <- getLine
+        handleAction' action word trie where
+            handleAction' :: Char -> Word -> Trie -> IO()
+            handleAction' action word trie
+                | action == 'a' = do
+                    putStrLn "New word is added!"
+                    appLifeCyle (insert word trie)
+                | action == 's' = do
+                    if search word trie then putStrLn "Exists in dictionary!"
+                        else putStrLn "NOT exist!"
+                    appLifeCyle trie
+                | action == 'f' = do
+                    case (prefix word trie) of
+                        Just words -> do
+                            putStrLn "Found words:"
+                            mapM_ putStrLn words
+                        Nothing -> putStrLn "No words found with that prefix!"
+                    appLifeCyle trie
 
 main = do
     -- get command line argument
