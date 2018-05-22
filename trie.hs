@@ -54,7 +54,26 @@ getTrieWords _ [] = Nothing
 getTrieWords a xs = Just [a ++ x | x <- xs]
 
 appLifeCyle :: Trie -> IO()
-appLifeCyle = undefined
+appLifeCyle trie = do
+    prepareUI
+    (action:_) <- getLine
+    handleAction action trie
+
+prepareUI :: IO()
+prepareUI = do
+    putStrLn ""
+    putStrLn "################################"
+    putStrLn "### TRIE TREE DATA STRUCTURE ###"
+    putStrLn "################################"
+    putStrLn "a) Add Word"
+    putStrLn "s) Search Word"
+    putStrLn "f) Find words with prefix"
+    putStrLn "p) Print all words"
+    putStrLn "e) Exit"
+    putStrLn "Enter the action:"
+
+handleAction :: Char -> Trie -> IO()
+handleAction = undefined
 
 main = do
     -- get command line argument
