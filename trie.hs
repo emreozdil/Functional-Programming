@@ -21,11 +21,7 @@ insert (x:xs) (Trie end child) =
 
 
 insertList :: [Word] -> Trie
-insertList a = insertList' a empty where
-    insertList' :: [Word] -> Trie -> Trie
-    insertList' (x:xs) trie
-        | xs == [] = insert x trie
-        | otherwise = insertList' xs (insert x trie)
+insertList words = foldr (insert) empty words
 
 search :: Word -> Trie -> Bool
 search [] (Trie end child) = end
